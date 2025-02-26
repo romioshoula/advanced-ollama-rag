@@ -1,0 +1,12 @@
+I need you to create a troubleshooting tool based on a predefined set of steps. This tool will be designed to help diagnose network connectivity issues for a user trying to access an application (App1). The steps are as follows:
+
+Get the user's IP address.
+SSH to the switch that the user is connected to.
+Confirm the port the user is connected to is UP.
+Confirm the IP range for the user's subnet is being advertised by the router.
+Check the firewall and see if the user's subnet is permitted to access the application (App1).
+Please provide the following:
+
+A conceptual outline or code snippets demonstrating how you would program a Large Language Model (LLM) to carry out these steps. Consider how you would structure the input, the logic flow, and the necessary interactions with external systems (like network devices).
+A plan for how you would program the LLM to take the output of each step and compile it into a structured Word document. This document should clearly present the results of each troubleshooting step and any relevant findings.
+The goal is to automate the troubleshooting process as much as possible using the LLM. Please provide a detailed response that covers both the execution of the troubleshooting steps and the report generation.

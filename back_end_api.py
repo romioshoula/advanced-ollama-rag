@@ -15,19 +15,45 @@ logging.basicConfig(level=logging.DEBUG)
 # EMBEDDING_MODEL = "BAAI/bge-base-en-v1.5"
 # LANGUAGE_MODEL = "llama3.2"
 
-# For openai model: need to create .env in the src folder to include OPENAI_API_KEY = 'sk-xxx'
-OPENAI_MODEL_YN = True
-EMBEDDING_MODEL = "text-embedding-3-large"
-LANGUAGE_MODEL = "gpt-4o-mini"
-TEMPERATURE = 0.4
-INPUT_DIRS = ["sample_docs/"]  # Can include multiple paths
-CHROMA_DB_DIR = "chroma_db"
-INDEX_PERSIST_DIR = "index_storage"
-CHROMA_COLLECTION_NAME = "my_collection"
-CHUNK_SIZE = 1024
-CHUNK_OVERLAP = 20
-RECURSIVE = True
+import os # mported in the script, which is necessary to use the os.path.abspath function
 
+# Define the directory path
+directory_path = "E:\\VirtualFusion-ai\\Ollama Tasks\\Ollama Project\\advanced-ollama-rag\\sample_docs"
+
+# Create the directory if it doesn't exist
+if not os.path.exists(directory_path):
+    os.makedirs(directory_path)
+
+# For openai model: need to create .env in the src folder to include OPENAI_API_KEY = 'sk-xxx'
+# comment for changing to llama model
+
+###
+### OPENAI_MODEL_YN = True
+### EMBEDDING_MODEL = "text-embedding-3-large"
+### LANGUAGE_MODEL = "gpt-4o-mini"
+### TEMPERATURE = 0.4
+### INPUT_DIRS = [os.path.abspath(directory_path)]  # Can include multiple paths
+### CHROMA_DB_DIR = "chroma_db"
+### INDEX_PERSIST_DIR = "index_storage"
+### CHROMA_COLLECTION_NAME = "my_collection"
+### CHUNK_SIZE = 1024
+### CHUNK_OVERLAP = 20
+### RECURSIVE = True
+
+#------- Use Ollama Model ------- 
+# Customize your parameters for ollama model
+OPENAI_MODEL_YN = False # if False, you will use ollama model
+EMBEDDING_MODEL = "BAAI/bge-base-en-v1.5" # suggested embedding model, you can replace with any HuggingFace embedding models
+LANGUAGE_MODEL = 'llama3.2' # you need to download ollama model first, please check https://ollama.com/download
+BASE_URL = "http://localhost:11434" # you can swith to different base_url for Ollama model
+TEMPERATURE = 0.4 # range from 0 to 1, higher means higher creativitiy level
+CHROMA_DB_DIR = 'chroma_db' # Your path to the chroma db
+INDEX_PERSIST_DIR = 'index_storage' # Your path to the index storage
+CHROMA_COLLECTION_NAME = 'my_collection' 
+INPUT_DIRS = [os.path.abspath(directory_path)] # can specify multiple document paths
+CHUNK_SIZE = 1024 # Size of text chunks for creating embeddings
+CHUNK_OVERLAP = 20 # Overlap between text chunks to maintain context
+RECURSIVE = True # Recursive or not under one folder
 
 # Define the QA Prompt Template
 text_qa_template = """
@@ -146,6 +172,7 @@ ns = NexuSync(
     chunk_overlap=CHUNK_OVERLAP,
     chunk_size=CHUNK_SIZE,
     recursive=RECURSIVE,
+    base_url=BASE_URL  # Add this line
 )
 
 

@@ -128,3 +128,5 @@ __pycache__/
 *.py[cod]
 
 test.py
+
+echo ".vs/" >> .gitignore
